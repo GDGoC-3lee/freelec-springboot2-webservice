@@ -1,16 +1,22 @@
 package com.jojoldu.book.springboot.domain.user;
 
 import com.jojoldu.book.springboot.domain.BaseTimeEntity;
+import com.jojoldu.book.springboot.domain.posts.Posts;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
 @Entity
 public class User extends BaseTimeEntity {
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Posts> posts=new ArrayList<>();
+
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
