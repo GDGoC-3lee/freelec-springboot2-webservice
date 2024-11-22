@@ -11,6 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 public class Like extends BaseTimeEntity {
+
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long like_id;
