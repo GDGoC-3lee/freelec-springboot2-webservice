@@ -12,6 +12,9 @@ var main = {
         $('#btn-delete').on('click', function () {
             _this.delete();
         });
+        $('.likeBtn').on('click', function(){
+            _this.like($(this));
+        })
     },
     save : function () {
         var data = {
@@ -68,8 +71,23 @@ var main = {
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
-    }
+    },
+    like : function ($likeBtn) {
+        const likeBtn = $likeBtn[0];
+        const liked = (likeBtn.dataset.liked === "true");
+        const heart = $likeBtn.find('.heart');
 
-};
+        if(liked) {
+            likeBtn.dataset.liked = "false";
+            heart.css('color', 'gray');
+            heart.text('♡');
+        }
+        else {
+            likeBtn.dataset.liked = "true";
+            heart.css('color', 'red');
+            heart.text('♥');
+        }
+    }
+}
 
 main.init();
