@@ -1,6 +1,7 @@
 package com.jojoldu.book.springboot.domain.user;
 
 import com.jojoldu.book.springboot.domain.BaseTimeEntity;
+import com.jojoldu.book.springboot.domain.posts.Posts;
 import com.jojoldu.book.springboot.domain.like.Like;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,6 +15,8 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 public class User extends BaseTimeEntity {
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Posts> posts=new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Like> like=new ArrayList<>();
