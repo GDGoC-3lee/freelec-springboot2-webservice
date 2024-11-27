@@ -43,4 +43,14 @@ public class IndexController {
 
         return "posts-update";
     }
+
+    @GetMapping("/mypage")
+    public String myPage(Model model, @LoginUser SessionUser user) {
+        if (user != null) {
+            model.addAttribute("userName", user.getName());
+            model.addAttribute("userEmail", user.getEmail());
+            model.addAttribute("userPicture", user.getPicture());
+        }
+        return "mypage";
+    }
 }
