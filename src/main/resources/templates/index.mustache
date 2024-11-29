@@ -37,9 +37,8 @@
                 <td>{{id}}</td>
                 <td>
                     <!--좋아요 버튼-->
-                   <button class="likeBtn" data-liked="true" style="background: none; border: none; outline: none;">
+                   <button class="likeBtn" data-like-id="{{id}}" style="background: none; border: none; outline: none;">
                         <span class="heart" style="color:{{#liked}}red{{/liked}}{{^liked}}gray{{/liked}}; font-size:22px;">
-                        {{#liked}}♥{{/liked}}{{^liked}}♡{{/liked}}
                         </span>
                     </button>
                 </td>
