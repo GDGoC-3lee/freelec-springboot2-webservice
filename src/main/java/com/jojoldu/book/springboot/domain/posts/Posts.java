@@ -1,12 +1,11 @@
 package com.jojoldu.book.springboot.domain.posts;
 
 import com.jojoldu.book.springboot.domain.BaseTimeEntity;
+import com.jojoldu.book.springboot.domain.like.Like_Table;
 import com.jojoldu.book.springboot.domain.user.User;
-import com.jojoldu.book.springboot.domain.like.Like;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ public class Posts extends BaseTimeEntity {
     private User user;
 
     @OneToMany(mappedBy = "posts", cascade = CascadeType.ALL, orphanRemoval = true)
-    private final List<Like> like=new ArrayList<>();
+    private final List<Like_Table> likeTable =new ArrayList<>();
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
