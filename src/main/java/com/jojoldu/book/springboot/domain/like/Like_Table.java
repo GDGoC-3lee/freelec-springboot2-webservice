@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Like extends BaseTimeEntity {
+public class Like_Table extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="post_id")
@@ -27,10 +27,14 @@ public class Like extends BaseTimeEntity {
     private Long like_id;
 
     @Builder
-    public Like(Posts posts, User user){
+    public Like_Table(Posts posts, User user){
         this.posts=posts;
         this.user=user;
+    }
 
+    public void update(Posts posts, User user){
+        this.posts=posts;
+        this.user = user;
     }
 }
 
