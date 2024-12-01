@@ -37,13 +37,13 @@
                 <td>{{id}}</td>
                 <td>
                     <!--좋아요 버튼-->
-                   <button class="likeBtn" data-like-id="{{id}}" style="background: none; border: none; outline: none;">
+                    <button class="likeBtn" data-like-id="{{id}}" style="background: none; border: none; outline: none;">
                         <span class="heart" style="color:{{#liked}}red{{/liked}}{{^liked}}gray{{/liked}}; font-size:22px;">
                         </span>
                     </button>
                 </td>
-                <td><a href="/posts/update/{{id}}">{{title}}</a><td>
-                <td>{{author}}</td>
+                <td><a href="/posts/update/{{id}}">{{title}}</a></td>
+                <td>{{author}}<td>
                 <td>{{modifiedDate}}</td>
             </tr>
         {{/posts}}

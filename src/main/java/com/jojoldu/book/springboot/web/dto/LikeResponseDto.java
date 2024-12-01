@@ -7,12 +7,12 @@ import lombok.Getter;
 
 @Getter
 public class LikeResponseDto {
-    private Long id;
+    private Long like_id;
     private Posts posts;
     private User user;
 
     public LikeResponseDto(Like_Table entity){
-        this.id=entity.getLike_id();
+        this.like_id=entity.getLike_id();
         this.user=entity.getUser();
         this.posts=entity.getPosts();
     }

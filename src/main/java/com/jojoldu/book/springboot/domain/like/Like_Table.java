@@ -26,15 +26,18 @@ public class Like_Table extends BaseTimeEntity {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long like_id;
 
+    private boolean liked;
+
     @Builder
-    public Like_Table(Posts posts, User user){
+    public Like_Table(Posts posts, User user, boolean liked) {
         this.posts=posts;
         this.user=user;
+        this.liked=liked;
+
     }
 
-    public void update(Posts posts, User user){
-        this.posts=posts;
-        this.user = user;
+    public void update(boolean liked) {
+        this.liked=liked;
     }
 }
 
