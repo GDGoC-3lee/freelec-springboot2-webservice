@@ -25,4 +25,4 @@
 - fork X, 기능별로 브랜치 생성하여 구현
     - main (기존 플젝 가져올 때 사용)
     - mypage (마이페이지)
-    - like (좋아요)
+    - likeTable (좋아요)

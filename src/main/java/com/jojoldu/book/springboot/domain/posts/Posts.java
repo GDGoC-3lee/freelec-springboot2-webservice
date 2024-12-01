@@ -1,12 +1,15 @@
 package com.jojoldu.book.springboot.domain.posts;
 
 import com.jojoldu.book.springboot.domain.BaseTimeEntity;
+import com.jojoldu.book.springboot.domain.like.Like_Table;
+import com.jojoldu.book.springboot.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -15,6 +18,12 @@ import javax.persistence.*;
 //entity 정의
 //jpa 어노테이션
 public class Posts extends BaseTimeEntity {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id")
+    private User user;
+
+    @OneToMany(mappedBy = "posts", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<Like_Table> likeTable =new ArrayList<>();
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -29,10 +38,11 @@ public class Posts extends BaseTimeEntity {
     private String author;
 
     @Builder
-    public Posts(String title, String content, String author){
+    public Posts(String title, String content, String author, User user){
         this.title=title;
         this.content=content;
         this.author=author;
+        this.user=user;
     }
 
     public void update(String title, String content){

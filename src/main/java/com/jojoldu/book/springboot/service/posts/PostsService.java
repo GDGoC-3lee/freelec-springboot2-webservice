@@ -1,6 +1,8 @@
 package com.jojoldu.book.springboot.service.posts;
 
+import com.jojoldu.book.springboot.domain.like.LikeRepository;
 import com.jojoldu.book.springboot.domain.posts.Posts;
+import com.jojoldu.book.springboot.domain.user.User;
 import com.jojoldu.book.springboot.domain.posts.PostsRepository;
 import com.jojoldu.book.springboot.web.dto.PostsListResponseDto;
 import com.jojoldu.book.springboot.web.dto.PostsResponseDto;
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
 @Service
 public class PostsService {
     private final PostsRepository postsRepository;
+    private final LikeRepository likeRepository;
 
     @Transactional
     public Long save(PostsSaveRequestDto requestDto){
@@ -56,4 +59,10 @@ public class PostsService {
 
         postsRepository.delete(posts);
     }
+
+    //
+//    public boolean isLiked(User user) {
+//        return likeRepository.existsByUser(user);
+//    }
+//
 }
