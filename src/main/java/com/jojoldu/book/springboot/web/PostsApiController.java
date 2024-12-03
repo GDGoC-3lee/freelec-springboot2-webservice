@@ -15,6 +15,7 @@ import com.jojoldu.book.springboot.config.auth.dto.SessionUser;
 
 import java.util.List;
 import java.util.Map;
+import org.springframework.http.ResponseEntity;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/posts")
@@ -33,39 +34,36 @@ public class PostsApiController {
 
     //게시글 목록 반환
     @GetMapping
-    public List<PostsListResponseDto> getPostsList(){
+    public List<PostsListResponseDto> getPostsList() {
         return postsService.findAllDesc();
     }
+
     //좋아요 상태 확인 ------
     @GetMapping("/{id}/like")
-    public boolean getLikeStatus(@PathVariable Long id){
-        //현재 로그인한 사용자
+    public boolean getLikeStatus(@PathVariable Long id) {
         SessionUser sessionUser = (SessionUser) httpSession.getAttribute("user");
         if (sessionUser != null) {
             String username = sessionUser.getName();
             return likeService.isLiked(id, username);
         }
-        return false; //로그인 X 경우
+        return false; //로그인 X
     }
 
-    // 좋아요 등록, 취소 -----
-    @PutMapping
-    public long like(@RequestBody LikeUpdateRequestDto requestDto) {
-        String username = null;
-        //현재 로그인한 사용자
-        SessionUser sessionUser = (SessionUser) httpSession.getAttribute("user");
-        if (sessionUser != null) {
-            username = sessionUser.getName();
-        }
-        return likeService.save(requestDto.getPost_id(), username);
+
+@PutMapping("/{id}/like")
+public ResponseEntity<Long> toggleLike(@PathVariable Long id) {
+    String username = null;
+    SessionUser sessionUser = (SessionUser) httpSession.getAttribute("user");
+    if (sessionUser != null) {
+        username = sessionUser.getName();
     }
 
-    @DeleteMapping
-    public Long unlike(@RequestBody LikeDeleteRequestDto deleteRequestDto) {
-        Long like_id = deleteRequestDto.getLike_id();
-        likeService.delete(like_id);
-        return like_id;
-    }
+    Long likeId = likeService.toggleLike(id, username);
+
+    // 상태 변경 후 like_id 반환
+    return ResponseEntity.ok(likeId);
+}
+
 
     @PutMapping("/{id}")
     public Long update(@PathVariable Long id, @RequestBody PostsUpdateRequestDto requestDto) {
@@ -73,9 +71,11 @@ public class PostsApiController {
     }
 
     @DeleteMapping("/{id}")
-    public Long delete(@PathVariable Long id){
+    public Long delete(@PathVariable Long id) {
         postsService.delete(id);
         return id;
     }
+
+
 
 }
